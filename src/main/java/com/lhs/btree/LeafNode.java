@@ -9,7 +9,7 @@ package com.lhs.btree;
 public class LeafNode extends TreeNode {
 
     //最大子节点数目
-    private static final int MAX_CHILDREN = 64;
+    private static final int MAX_CHILDREN = 4;
 
     //key值数组
     private DataItem[] keyList = new DataItem[MAX_CHILDREN];
