@@ -1,6 +1,7 @@
 package com.lhs;
 
 import com.lhs.btree.BTree;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -17,5 +18,6 @@ public class BtreeTest {
         bTree.put("a".getBytes(), "b".getBytes());
 
         byte[] bytes = bTree.get("a".getBytes());
+        Assert.assertArrayEquals("b".getBytes(), bytes);
     }
 }

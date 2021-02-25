@@ -75,9 +75,9 @@ public class BTree {
             } else {
                 treeNode = child;
             }
-            ValueNode valueNode = new ValueNode(insertValue);
-            treeNode.insertChild(insertKey, valueNode);
         }
+        ValueNode valueNode = new ValueNode(insertValue);
+        treeNode.insertChild(insertKey, valueNode);
     }
 
     /**
