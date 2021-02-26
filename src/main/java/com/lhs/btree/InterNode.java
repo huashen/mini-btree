@@ -1,7 +1,5 @@
 package com.lhs.btree;
 
-import java.util.Arrays;
-
 /**
  * InterNode
  *
@@ -38,9 +36,11 @@ public class InterNode extends TreeNode {
     @Override
     public void insertChild(DataItem key, Node child) {
         int index = count;
-        for (int i = count; i > index; i--) {
-            index = i;
-            break;
+        for (int i = 0; i < count; i++) {
+            if (key.compareTo(keyList[i]) <= 0) {
+                index = i;
+                break;
+            }
         }
 
         for (int i = count; i > index; i--) {
