@@ -1,5 +1,7 @@
 package com.lhs.btree;
 
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 /**
  * TreeNode
  *
@@ -7,6 +9,11 @@ package com.lhs.btree;
  * @since 2021-02-12
  */
 public abstract class TreeNode extends Node {
+
+   /**
+    * 最大子节点数目
+    */
+   protected final ReentrantReadWriteLock locker = new ReentrantReadWriteLock();
 
    public abstract Node findChild(DataItem key);
 
@@ -17,4 +24,21 @@ public abstract class TreeNode extends Node {
    public abstract TreeNode split(TreeNode father);
 
    public abstract boolean needSplit();
+
+   public void writeLock() {
+      locker.writeLock().lock();
+   }
+
+   public void readLock() {
+      locker.readLock().lock();
+   }
+
+   public void releaseLock() {
+      if (locker.writeLock().isHeldByCurrentThread()) {
+         locker.writeLock().unlock();
+         return;
+      }
+
+      locker.readLock().unlock();
+   }
 }
