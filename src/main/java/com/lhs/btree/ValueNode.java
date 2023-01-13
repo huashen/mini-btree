@@ -1,12 +1,14 @@
 package com.lhs.btree;
 
+import java.nio.ByteBuffer;
+
 /**
  * ValueNode
  *
  * @author longhuashen
  * @since 2021-02-12
  */
-public class ValueNode extends Node {
+public class ValueNode extends Node implements Loggable {
 
     private DataItem value;
 
@@ -22,5 +24,19 @@ public class ValueNode extends Node {
     public String toString() {
         String nodeStr = "<ValueNode>" + new String(value.getData()) + "</ValueNode>";
         return nodeStr;
+    }
+
+    @Override
+    public void writeIntoBuffer(ByteBuffer buffer) {
+        int size = 0;
+        if (value != null) {
+            size = value.getData().length;
+            buffer.putInt(size);
+            if (size != 0) {
+                buffer.put(value.getData(), 0, size);
+            }
+        } else {
+            buffer.putInt(size);
+        }
     }
 }

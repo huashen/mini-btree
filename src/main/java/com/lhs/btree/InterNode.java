@@ -1,12 +1,14 @@
 package com.lhs.btree;
 
+import java.nio.ByteBuffer;
+
 /**
  * InterNode
  *
  * @author longhuashen
  * @since 2021-02-12
  */
-public class InterNode extends TreeNode {
+public class InterNode extends TreeNode implements Loggable {
 
     //最大子节点数目
     private static final int MAX_CHILDREN = 4;
@@ -19,6 +21,9 @@ public class InterNode extends TreeNode {
 
     //当前包含的子节点数量
     private int count = 0;
+
+    //指向文件中子节点的数组
+    private long[] lsnList = new long[MAX_CHILDREN];
 
     public InterNode() {
     }
@@ -108,5 +113,25 @@ public class InterNode extends TreeNode {
         nodeStr += "</InterNode>";
 
         return nodeStr;
+    }
+
+    @Override
+    public void writeIntoBuffer(ByteBuffer buffer) {
+        buffer.putInt(count);
+        for (int i = 0; i < count; i++) {
+            if (keyList[i] != DataItem.MAX_VALUE) {
+                int size = keyList[i].getData().length;
+                buffer.putInt(size);
+                if (size != 0) {
+                   buffer.put(keyList[i].getData(), 0, size);
+                }
+            } else {
+                buffer.putInt(-1);
+            }
+        }
+
+        for (int i = 0; i < count; i++) {
+            buffer.putLong(lsnList[i]);
+        }
     }
 }
