@@ -25,6 +25,12 @@ public abstract class TreeNode extends Node {
 
    public abstract boolean needSplit();
 
+   private int count = 0;
+
+   private static final int MAX_CHILDREN = 4;
+
+   private DataItem[] keyList = new DataItem[MAX_CHILDREN];
+
    public void writeLock() {
       locker.writeLock().lock();
    }
@@ -40,5 +46,20 @@ public abstract class TreeNode extends Node {
       }
 
       locker.readLock().unlock();
+   }
+
+   @Override
+   public int getLogSize() {
+      int logSize = Integer.BYTES;
+
+      for (int i = 0; i < count; i++) {
+         logSize += Integer.BYTES;
+         if (keyList[i] != DataItem.MAX_VALUE) {
+            logSize += keyList[i].getData().length;
+         }
+      }
+
+      logSize += (count * Long.BYTES);
+      return logSize;
    }
 }
