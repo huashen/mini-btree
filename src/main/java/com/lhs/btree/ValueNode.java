@@ -39,4 +39,13 @@ public class ValueNode extends Node implements Loggable {
             buffer.putInt(size);
         }
     }
+
+    @Override
+    public int getLogSize() {
+        int logSize = Integer.BYTES;
+        if (value != null) {
+            logSize += value.getData().length;
+        }
+        return logSize;
+    }
 }
