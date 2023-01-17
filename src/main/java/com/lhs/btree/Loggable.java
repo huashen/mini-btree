@@ -11,4 +11,8 @@ import java.nio.ByteBuffer;
 public interface Loggable {
 
     void writeIntoBuffer(ByteBuffer byteBuffer);
+
+    int getLogType();
+
+    int getLogSize();
 }
