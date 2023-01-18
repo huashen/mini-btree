@@ -41,6 +41,11 @@ public class ValueNode extends Node implements Loggable {
     }
 
     @Override
+    public int getLogType() {
+        return 0;
+    }
+
+    @Override
     public int getLogSize() {
         int logSize = Integer.BYTES;
         if (value != null) {

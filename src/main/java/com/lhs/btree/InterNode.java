@@ -134,4 +134,9 @@ public class InterNode extends TreeNode implements Loggable {
             buffer.putLong(lsnList[i]);
         }
     }
+
+    @Override
+    public int getLogType() {
+        return 0;
+    }
 }
