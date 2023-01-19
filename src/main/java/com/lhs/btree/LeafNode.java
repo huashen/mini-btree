@@ -1,5 +1,7 @@
 package com.lhs.btree;
 
+import java.nio.ByteBuffer;
+
 /**
  * LeafNode
  *
@@ -126,5 +128,15 @@ public class LeafNode extends TreeNode {
         }
         nodeStr += "</LeafNode>";
         return nodeStr;
+    }
+
+    @Override
+    public void writeIntoBuffer(ByteBuffer byteBuffer) {
+
+    }
+
+    @Override
+    public int getLogType() {
+        return 0;
     }
 }
