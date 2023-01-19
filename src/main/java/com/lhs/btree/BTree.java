@@ -1,5 +1,6 @@
 package com.lhs.btree;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -158,5 +159,15 @@ public class BTree {
         }
 
         return Arrays.copyOf(value, value.length);
+    }
+
+    public void close() throws IOException {
+        if (root == null) {
+            return;
+        }
+
+        root.writeChildren();
+        long newRootLSN = LogManager.getInstance().write(root);
+        root = null;
     }
 }
