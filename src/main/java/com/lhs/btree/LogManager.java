@@ -1,7 +1,11 @@
 package com.lhs.btree;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
 
 /**
  * LogManager
@@ -11,7 +15,19 @@ import java.nio.ByteBuffer;
  */
 public class LogManager {
 
-    public void write(Loggable log) throws IOException {
+    private static final LogManager logManager = new LogManager();
+
+    private static FileChannel fileChannel = null;
+
+    private LogManager() {
+
+    }
+
+    public static LogManager getInstance() {
+        return logManager;
+    }
+
+    public long write(Loggable log) throws IOException {
         int logType = log.getLogType();
         int logSize = log.getLogSize();
         LogHeader logHeader = new LogHeader(logType, logSize);
@@ -21,6 +37,7 @@ public class LogManager {
         log.writeIntoBuffer(buffer);
         buffer.flip();
 
-
+        long lsn = fileChannel.size();
+        return lsn;
     }
 }

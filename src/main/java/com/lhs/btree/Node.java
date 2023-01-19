@@ -6,9 +6,14 @@ package com.lhs.btree;
  * @author longhuashen
  * @since 2021-02-12
  */
-public abstract class Node {
+public abstract class Node implements Loggable {
 
     public int getLogSize() {
         return 0;
+    }
+
+
+    void writeChildren() {
+
     }
 }

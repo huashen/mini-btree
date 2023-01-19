@@ -1,5 +1,6 @@
 package com.lhs.btree;
 
+import java.io.IOException;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -31,6 +32,10 @@ public abstract class TreeNode extends Node {
 
    private DataItem[] keyList = new DataItem[MAX_CHILDREN];
 
+   private Node[] childList = new Node[MAX_CHILDREN];
+
+   private long[] lsnList = new long[MAX_CHILDREN];
+
    public void writeLock() {
       locker.writeLock().lock();
    }
@@ -61,5 +66,20 @@ public abstract class TreeNode extends Node {
 
       logSize += (count * Long.BYTES);
       return logSize;
+   }
+
+   @Override
+   void writeChildren() {
+      for (int i = 0; i < count; i++) {
+         try {
+            if (childList[i] == null) {
+               childList[i].writeChildren();
+               lsnList[i] = LogManager.getInstance().write(childList[i]);
+               childList[i] = null;
+            }
+         } catch (IOException ex) {
+               ex.printStackTrace();
+         }
+      }
    }
 }
