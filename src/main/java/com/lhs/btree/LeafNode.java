@@ -139,4 +139,9 @@ public class LeafNode extends TreeNode {
     public int getLogType() {
         return 0;
     }
+
+    @Override
+    public void readFromBuffer(ByteBuffer byteBuffer) {
+
+    }
 }

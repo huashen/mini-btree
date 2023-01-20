@@ -53,4 +53,9 @@ public class ValueNode extends Node implements Loggable {
         }
         return logSize;
     }
+
+    @Override
+    public void readFromBuffer(ByteBuffer byteBuffer) {
+
+    }
 }

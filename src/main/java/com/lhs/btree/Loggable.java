@@ -15,4 +15,6 @@ public interface Loggable {
     int getLogType();
 
     int getLogSize();
+
+    void readFromBuffer(ByteBuffer byteBuffer);
 }

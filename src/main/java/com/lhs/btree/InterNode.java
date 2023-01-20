@@ -139,4 +139,9 @@ public class InterNode extends TreeNode implements Loggable {
     public int getLogType() {
         return 0;
     }
+
+    @Override
+    public void readFromBuffer(ByteBuffer byteBuffer) {
+
+    }
 }
