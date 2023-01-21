@@ -141,7 +141,14 @@ public class InterNode extends TreeNode implements Loggable {
     }
 
     @Override
-    public void readFromBuffer(ByteBuffer byteBuffer) {
+    public void readFromBuffer(ByteBuffer buffer) {
+        count = buffer.getInt();
+        for (int i = 0; i < count; i++) {
 
+        }
+
+        for (int i = 0; i < count; i++) {
+            lsnList[i] = buffer.getLong();
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.lhs.btree;
 
+import java.nio.ByteBuffer;
+
 /**
  * Node
  *
@@ -16,4 +18,8 @@ public abstract class Node implements Loggable {
     void writeChildren() {
 
     }
+
+    public void readFromBuffer(ByteBuffer buffer) {
+
+    };
 }
