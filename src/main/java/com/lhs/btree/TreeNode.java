@@ -1,6 +1,7 @@
 package com.lhs.btree;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -80,6 +81,27 @@ public abstract class TreeNode extends Node {
          } catch (IOException ex) {
                ex.printStackTrace();
          }
+      }
+   }
+
+   @Override
+   public void readFromBuffer(ByteBuffer buffer) {
+      count = buffer.getInt();
+      for (int i = 0; i < count; i++) {
+         int size = buffer.getInt();
+         if (size == 0) {
+            keyList[i] = null;
+         } else if(size == -1) {
+            keyList[i] = DataItem.MAX_VALUE;
+         } else {
+            byte[] data = new byte[size];
+            buffer.get(data);
+            keyList[i] = new DataItem(data);
+         }
+      }
+
+      for (int i = 0; i < count; i++) {
+         lsnList[i] = buffer.getLong();
       }
    }
 }
