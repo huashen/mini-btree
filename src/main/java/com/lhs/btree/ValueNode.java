@@ -55,7 +55,14 @@ public class ValueNode extends Node implements Loggable {
     }
 
     @Override
-    public void readFromBuffer(ByteBuffer byteBuffer) {
-
+    public void readFromBuffer(ByteBuffer buffer) {
+        int size = buffer.getInt();
+        if (size == 0) {
+            value = null;
+        } else {
+            byte[] data = new byte[size];
+            buffer.get(data);
+            value = new DataItem(data);
+        }
     }
 }
