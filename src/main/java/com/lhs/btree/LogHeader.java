@@ -39,4 +39,9 @@ public class LogHeader {
         byteBuffer.putInt(logContentType);
         byteBuffer.putInt(logContentSize);
     }
+
+    public void readFromBuffer(ByteBuffer buffer) {
+        logContentType = buffer.getInt();
+        logContentSize = buffer.getInt();
+    }
 }
