@@ -40,4 +40,15 @@ public class LogManager {
         long lsn = fileChannel.size();
         return lsn;
     }
+
+    public void read(long lsn) throws IOException {
+        LogHeader logHeader = new LogHeader();
+        ByteBuffer headBuffer = ByteBuffer.allocate(logHeader.getLogSize());
+        fileChannel.position(lsn);
+        fileChannel.read(headBuffer);
+        headBuffer.flip();
+        logHeader.readFromBuffer(headBuffer);
+
+
+    }
 }
