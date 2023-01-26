@@ -21,6 +21,8 @@ public class LogHeader {
 
     private int logSize;
 
+    private int contentType;
+
     public LogHeader() {
     }
 
@@ -39,6 +41,10 @@ public class LogHeader {
 
     public int getLogSize() {
         return logSize;
+    }
+
+    public int getContentType() {
+        return contentType;
     }
 
     public void writeIntoBuffer(ByteBuffer byteBuffer) {

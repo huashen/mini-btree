@@ -41,7 +41,7 @@ public class LogManager {
         return lsn;
     }
 
-    public void read(long lsn) throws IOException {
+    public Node read(long lsn) throws IOException {
         LogHeader logHeader = new LogHeader();
         ByteBuffer headBuffer = ByteBuffer.allocate(logHeader.getLogSize());
         fileChannel.position(lsn);
@@ -49,6 +49,21 @@ public class LogManager {
         headBuffer.flip();
         logHeader.readFromBuffer(headBuffer);
 
+        ByteBuffer buffer = ByteBuffer.allocate(logHeader.getLogContentSize());
+        fileChannel.read(buffer);
+        buffer.flip();
 
+        Node node;
+        if (logHeader.getContentType() == LogHeader.VALUE_NODE_LOG) {
+            node = new ValueNode();
+        } else if (logHeader.getContentType() == LogHeader.LEAF_NODE_LOG) {
+            node = new LeafNode();
+        } else if (logHeader.getContentType() == LogHeader.INTER_NODE_LOG) {
+            node = new InterNode();
+        } else {
+            throw new RuntimeException("Invalid Log Type " + logHeader.getContentType());
+        }
+        node.readFromBuffer(buffer);
+        return node;
     }
 }

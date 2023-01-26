@@ -12,6 +12,9 @@ public class ValueNode extends Node implements Loggable {
 
     private DataItem value;
 
+    public ValueNode() {
+    }
+
     public ValueNode(DataItem value) {
         this.value = value;
     }
