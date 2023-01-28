@@ -16,6 +16,8 @@ public class LogHeader {
 
     public static final int INTER_NODE_LOG = 2;
 
+    public static final int ROOT_LSN_LOG = 3;
+
     private int logContentType;
     private int logContentSize;
 

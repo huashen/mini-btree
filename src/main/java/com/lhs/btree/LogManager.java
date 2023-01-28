@@ -66,4 +66,13 @@ public class LogManager {
         node.readFromBuffer(buffer);
         return node;
     }
+
+    public long writeRootLSN(long rootLSN) throws IOException {
+        int logType = LogHeader.ROOT_LSN_LOG;
+        int logSize = Long.BYTES;
+
+        LogHeader logHeader = new LogHeader(logType, logSize);
+
+        return 0;
+    }
 }
