@@ -72,7 +72,14 @@ public class LogManager {
         int logSize = Long.BYTES;
 
         LogHeader logHeader = new LogHeader(logType, logSize);
+        ByteBuffer buffer = ByteBuffer.allocate(logHeader.getLogSize() + logSize);
 
-        return 0;
+        logHeader.writeIntoBuffer(buffer);
+        buffer.putLong(rootLSN);
+        buffer.flip();
+        long lsn = fileChannel.size();
+        fileChannel.position(lsn);
+        fileChannel.write(buffer);
+        return lsn;
     }
 }
